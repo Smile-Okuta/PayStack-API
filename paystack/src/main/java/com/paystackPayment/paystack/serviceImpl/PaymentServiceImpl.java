@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 @Configuration
-@PropertySource("classpath:secret.properties")
+@PropertySource("classpath:secrets.properties")
 @RequiredArgsConstructor
 @Service
 @Getter
@@ -32,7 +32,7 @@ public class PaymentServiceImpl implements PaymentServices {
     @Value("${paystack.apiUrl}")
     private  String payStackApiUrl;
 
-    @Value("${paystack.secreteKey}")
+    @Value("${paystack.secretKey}")
     private  String payStackSecreteKey;
 
     private  RestTemplate restTemplate;
