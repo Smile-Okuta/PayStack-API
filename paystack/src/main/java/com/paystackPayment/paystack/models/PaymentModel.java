@@ -20,5 +20,6 @@ public class PaymentModel {
     private AppUser user;
     private String email;
     private double amount;
-    private boolean successful;
+    private PaymentStatus status;
+
 }
