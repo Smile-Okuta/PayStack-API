@@ -2,6 +2,7 @@ package com.paystackPayment.paystack.serviceImpl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.paystackPayment.paystack.dto.request.PaymentRequest;
 import com.paystackPayment.paystack.models.AppUser;
 import com.paystackPayment.paystack.models.PaymentModel;
 import com.paystackPayment.paystack.models.PaymentStatus;
@@ -41,10 +42,10 @@ public class PaymentServiceImpl implements PaymentServices {
     private PaymentRepository paymentRepository;
 
     @Override
-    public Map<String, Object> makePayment(String email, double amount) {
+    public Map<String, Object> makePayment(PaymentRequest paymentRequest) {
 
 
-        Optional<AppUser> userExist = appUserRepository.findByEmail(email);
+        Optional<AppUser> userExist = appUserRepository.findByEmail(paymentRequest.getEmail());
         if (userExist.isEmpty()) {
             return Map.of("error", "User not found");
         }
@@ -52,12 +53,12 @@ public class PaymentServiceImpl implements PaymentServices {
 
 
         HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", payStackSecreteKey);
+            headers.set("Authorization", "Bearer" + payStackSecreteKey);
             headers.set("Content-Type", "application/json");
 
             Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("email", email);
-            requestBody.put("amount", amount * 100);
+            requestBody.put("email", paymentRequest.getEmail());
+            requestBody.put("amount", paymentRequest.getAmount());
 
             HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
             ResponseEntity<String> response = restTemplate.exchange(payStackApiUrl, HttpMethod.POST, entity, String.class);
@@ -71,8 +72,8 @@ public class PaymentServiceImpl implements PaymentServices {
 
                 PaymentModel payment = new PaymentModel();
                 payment.setUser(user);
-                payment.setEmail(email);
-                payment.setAmount(amount);
+                payment.setEmail(paymentRequest.getEmail());
+                payment.setAmount(paymentRequest.getAmount());
                 payment.setStatus(PaymentStatus.PENDING);
                 paymentRepository.save(payment);
 
