@@ -7,7 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Data
+@Getter
+@Setter
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

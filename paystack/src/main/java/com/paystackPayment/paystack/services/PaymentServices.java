@@ -9,5 +9,5 @@ import java.util.Map;
 public interface PaymentServices {
     Map<String, Object > makePayment(PaymentRequest paymentRequest);
 
-
+   String sendEmail (String message, String email);
 }
