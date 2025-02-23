@@ -1,8 +1,9 @@
 package com.paystackPayment.paystack.controller;
 
 import com.paystackPayment.paystack.dto.request.PaymentRequest;
-import com.paystackPayment.paystack.dto.response.PaymentResponse;
+import com.paystackPayment.paystack.dto.request.UserRequest;
 import com.paystackPayment.paystack.services.PaymentServices;
+import com.paystackPayment.paystack.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+@RequestMapping("/api/user")
 @RestController
-@RequestMapping("/api/payments")
-public class Controller {
+public class UserController {
+    @Autowired
+    private UserService userService;
 
-@Autowired
-private PaymentServices paymentServices;
 
-@PostMapping("/initialize")
-public ResponseEntity<?> initializePayment(@RequestBody PaymentRequest paymentRequest){
+    @PostMapping("/create")
+    public ResponseEntity<?> initializePayment(@RequestBody UserRequest userRequest){
 
-        Map<String, Object> response = paymentServices.makePayment(paymentRequest);
-        return new ResponseEntity<>(paymentServices.makePayment(paymentRequest), HttpStatus.OK);
-}
+        String response = userService.createUser(userRequest);
+        return new ResponseEntity<>(userService.createUser(userRequest), HttpStatus.OK);
+    }
 
 }

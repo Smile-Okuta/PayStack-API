@@ -62,6 +62,7 @@ public class PaymentServiceImpl implements PaymentServices {
         }
         AppUser user = userExist.get();
 
+        logger.info("user: {}", user);
 
         HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer" + payStackSecreteKey);
