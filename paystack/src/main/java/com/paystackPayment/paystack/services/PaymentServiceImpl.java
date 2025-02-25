@@ -1,14 +1,15 @@
-package com.paystackPayment.paystack.serviceImpl;
+package com.paystackPayment.paystack.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.paystackPayment.paystack.PayStackProperties;
 import com.paystackPayment.paystack.dto.request.PaymentRequest;
 import com.paystackPayment.paystack.models.AppUser;
 import com.paystackPayment.paystack.models.PaymentModel;
 import com.paystackPayment.paystack.models.PaymentStatus;
 import com.paystackPayment.paystack.repositories.AppUserRepository;
 import com.paystackPayment.paystack.repositories.PaymentRepository;
-import com.paystackPayment.paystack.services.PaymentServices;
+import com.paystackPayment.paystack.services.interfaces.PaymentServices;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,13 +31,15 @@ import java.util.Map;
 import java.util.Optional;
 @Slf4j
 @Configuration
-@PropertySource("classpath:secrets.properties")
+//@PropertySource("payStack")
 @RequiredArgsConstructor
 @Service
-@Getter
+
 public class PaymentServiceImpl implements PaymentServices {
-    @Value("${paystack.apiUrl}")
-    private  String payStackApiUrl;
+
+    private PayStackProperties payStackProperties;
+
+    private static final String INITIATE_TRANSACTION_PATH = "/initialize";
 
     private static final Logger logger = LoggerFactory.getLogger(PaymentServices.class);
 
@@ -45,16 +48,18 @@ public class PaymentServiceImpl implements PaymentServices {
 
     private  RestTemplate restTemplate;
 
-    @Autowired
     private final AppUserRepository appUserRepository;
 
     private ObjectMapper objectMapper;
-    @Autowired
+
     private PaymentRepository paymentRepository;
+
+
 
     @Override
     public Map<String, Object> makePayment(PaymentRequest paymentRequest) {
 
+        String url = baseUrl + INITIATE_TRANSACTION_PATH;
 
         Optional<AppUser> userExist = appUserRepository.findByEmail(paymentRequest.getEmail());
         if (userExist.isEmpty()) {
@@ -76,7 +81,7 @@ public class PaymentServiceImpl implements PaymentServices {
         logger.info("Amount: {}", paymentRequest.getAmount());
 
             HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
-            ResponseEntity<String> response = restTemplate.exchange(payStackApiUrl, HttpMethod.POST, entity, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
         try {
             JsonNode jsonResponse = objectMapper.readTree(response.getBody());
@@ -108,10 +113,6 @@ public class PaymentServiceImpl implements PaymentServices {
 
     }
 
-    @Override
-    public String sendEmail(String message, String email) {
-        return "";
-    }
 
 
 };

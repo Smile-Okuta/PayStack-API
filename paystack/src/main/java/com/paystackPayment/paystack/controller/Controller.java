@@ -1,9 +1,7 @@
 package com.paystackPayment.paystack.controller;
 
 import com.paystackPayment.paystack.dto.request.PaymentRequest;
-import com.paystackPayment.paystack.dto.response.PaymentResponse;
-import com.paystackPayment.paystack.services.PaymentServices;
-import lombok.RequiredArgsConstructor;
+import com.paystackPayment.paystack.services.interfaces.PaymentServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.paystackPayment.paystack.services;
+package com.paystackPayment.paystack.services.interfaces;
 
 import com.paystackPayment.paystack.dto.request.UserRequest;
 

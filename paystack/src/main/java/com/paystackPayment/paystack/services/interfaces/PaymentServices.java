@@ -1,4 +1,4 @@
-package com.paystackPayment.paystack.services;
+package com.paystackPayment.paystack.services.interfaces;
 
 import com.paystackPayment.paystack.dto.request.PaymentRequest;
 import org.springframework.stereotype.Service;
@@ -9,5 +9,4 @@ import java.util.Map;
 public interface PaymentServices {
     Map<String, Object > makePayment(PaymentRequest paymentRequest);
 
-   String sendEmail (String message, String email);
 }

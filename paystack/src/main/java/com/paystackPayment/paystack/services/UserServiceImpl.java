@@ -1,9 +1,9 @@
-package com.paystackPayment.paystack.serviceImpl;
+package com.paystackPayment.paystack.services;
 
 import com.paystackPayment.paystack.dto.request.UserRequest;
 import com.paystackPayment.paystack.models.AppUser;
 import com.paystackPayment.paystack.repositories.AppUserRepository;
-import com.paystackPayment.paystack.services.UserService;
+import com.paystackPayment.paystack.services.interfaces.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
