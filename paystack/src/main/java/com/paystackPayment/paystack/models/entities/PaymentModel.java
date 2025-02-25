@@ -1,10 +1,13 @@
-package com.paystackPayment.paystack.models;
+package com.paystackPayment.paystack.models.entities;
 
+import com.paystackPayment.paystack.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Entity
 @AllArgsConstructor
@@ -19,7 +22,7 @@ public class PaymentModel {
     @ManyToOne
     private AppUser user;
     private String email;
-    private double amount;
+    private BigDecimal amount;
     private PaymentStatus status;
 
 }

@@ -1,6 +1,6 @@
 package com.paystackPayment.paystack.services.interfaces;
 
-import com.paystackPayment.paystack.dto.request.PaymentRequest;
+import com.paystackPayment.paystack.models.requests.PaymentRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

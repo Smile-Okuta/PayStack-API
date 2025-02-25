@@ -1,4 +1,4 @@
-package com.paystackPayment.paystack.dto.response;
+package com.paystackPayment.paystack.models.responses;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.paystackPayment.paystack.dto.request;
+package com.paystackPayment.paystack.models.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

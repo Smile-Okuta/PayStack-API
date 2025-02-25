@@ -1,6 +1,6 @@
 package com.paystackPayment.paystack.controller;
 
-import com.paystackPayment.paystack.dto.request.UserRequest;
+import com.paystackPayment.paystack.models.requests.UserRequest;
 import com.paystackPayment.paystack.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,12 +1,12 @@
-package com.paystackPayment.paystack;
+package com.paystackPayment.paystack.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-@ConfigurationProperties("payStack")
+@ConfigurationProperties("paystack")
 @Configuration
 @Data
-public class PayStackProperties {
+public class PaystackProperties {
     private String baseUrl;
 }

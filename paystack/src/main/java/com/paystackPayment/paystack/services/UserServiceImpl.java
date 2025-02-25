@@ -1,7 +1,7 @@
 package com.paystackPayment.paystack.services;
 
-import com.paystackPayment.paystack.dto.request.UserRequest;
-import com.paystackPayment.paystack.models.AppUser;
+import com.paystackPayment.paystack.models.requests.UserRequest;
+import com.paystackPayment.paystack.models.entities.AppUser;
 import com.paystackPayment.paystack.repositories.AppUserRepository;
 import com.paystackPayment.paystack.services.interfaces.UserService;
 import jakarta.transaction.Transactional;

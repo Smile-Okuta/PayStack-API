@@ -2,23 +2,20 @@ package com.paystackPayment.paystack.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paystackPayment.paystack.PayStackProperties;
-import com.paystackPayment.paystack.dto.request.PaymentRequest;
-import com.paystackPayment.paystack.models.AppUser;
-import com.paystackPayment.paystack.models.PaymentModel;
-import com.paystackPayment.paystack.models.PaymentStatus;
+import com.paystackPayment.paystack.config.PaystackProperties;
+import com.paystackPayment.paystack.models.requests.PaymentRequest;
+import com.paystackPayment.paystack.models.entities.AppUser;
+import com.paystackPayment.paystack.models.entities.PaymentModel;
+import com.paystackPayment.paystack.enums.PaymentStatus;
 import com.paystackPayment.paystack.repositories.AppUserRepository;
 import com.paystackPayment.paystack.repositories.PaymentRepository;
 import com.paystackPayment.paystack.services.interfaces.PaymentServices;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -37,7 +34,7 @@ import java.util.Optional;
 
 public class PaymentServiceImpl implements PaymentServices {
 
-    private PayStackProperties payStackProperties;
+    private final PaystackProperties paystackProperties;
 
     private static final String INITIATE_TRANSACTION_PATH = "/initialize";
 
@@ -48,7 +45,7 @@ public class PaymentServiceImpl implements PaymentServices {
 
     private  RestTemplate restTemplate;
 
-    private final AppUserRepository appUserRepository;
+    private AppUserRepository appUserRepository;
 
     private ObjectMapper objectMapper;
 
@@ -59,7 +56,7 @@ public class PaymentServiceImpl implements PaymentServices {
     @Override
     public Map<String, Object> makePayment(PaymentRequest paymentRequest) {
 
-        String url = baseUrl + INITIATE_TRANSACTION_PATH;
+        String url = paystackProperties.getBaseUrl() + INITIATE_TRANSACTION_PATH;
 
         Optional<AppUser> userExist = appUserRepository.findByEmail(paymentRequest.getEmail());
         if (userExist.isEmpty()) {

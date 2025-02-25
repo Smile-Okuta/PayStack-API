@@ -1,4 +1,4 @@
-package com.paystackPayment.paystack.models;
+package com.paystackPayment.paystack.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
